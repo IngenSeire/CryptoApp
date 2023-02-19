@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.cryptoapp"
+        applicationId "com.kostkiv.cryptoapp"
         minSdk 22
         targetSdk 33
         versionCode 1
@@ -33,7 +33,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.cryptoapp'
+    namespace 'com.kostkiv.cryptoapp'
 }
 
 

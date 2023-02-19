@@ -1,0 +1,31 @@
+package com.kostkiv.cryptoapp.data.database
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities = [CoinInfoDbModel::class], version = 2, exportSchema = false)
+abstract class CoinDatabase : RoomDatabase() {
+    companion object {
+        private const val DB_NAME = "main.db"
+        private var db : CoinDatabase? = null
+        private val LOCK = Any()
+
+        fun getInstance(context : Context) : CoinDatabase {
+            synchronized(LOCK) {
+                db?.let { return it }
+                val instance = Room.databaseBuilder(
+                    context,
+                    CoinDatabase::class.java,
+                    DB_NAME
+                ).fallbackToDestructiveMigration()
+                    .build()
+                db = instance
+                return instance
+            }
+        }
+    }
+
+    abstract fun coinPriceInfoDao() : CoinInfoDao
+}
