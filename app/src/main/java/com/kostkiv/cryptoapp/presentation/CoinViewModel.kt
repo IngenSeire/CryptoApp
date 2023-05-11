@@ -13,9 +13,7 @@ class CoinViewModel @Inject constructor(
     getCoinInfoListUseCase: GetCoinInfoListUseCase,
     private val loadDataUseCase: LoadDataUseCase) : ViewModel() {
 
-
     val coinInfoList = getCoinInfoListUseCase()
-
     fun getDetailInfo(fSymbol : String) = getCoinInfoUseCase(fromSymbol = fSymbol)
 
     init {

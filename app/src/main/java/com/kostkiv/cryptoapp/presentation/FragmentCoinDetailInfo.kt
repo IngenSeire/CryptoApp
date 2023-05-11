@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.kostkiv.cryptoapp.R
 import com.kostkiv.cryptoapp.databinding.FragmentCoinDetailInfoBinding
 import com.squareup.picasso.Picasso
@@ -21,7 +22,7 @@ class FragmentCoinDetailInfo : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailInfoBinding == null")
 
     @Inject
-    lateinit var viewModel : CoinViewModel
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val component by lazy {
         (activity?.application as CoinApp).component
@@ -49,6 +50,7 @@ class FragmentCoinDetailInfo : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         coinName?.let {
             val symbolsTemplate = this.resources.getString(R.string.symbols_template)
             viewModel.getDetailInfo(it).observe(viewLifecycleOwner) { coinInfo ->

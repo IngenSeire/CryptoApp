@@ -7,27 +7,28 @@ import com.kostkiv.cryptoapp.data.network.ApiFactory
 import com.kostkiv.cryptoapp.data.network.ApiService
 import com.kostkiv.cryptoapp.data.repository.CoinRepositoryImpl
 import com.kostkiv.cryptoapp.domain.CoinRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 @Module
-class DataModule {
+abstract class DataModule {
 
-    @Provides
+    @Binds
     @ApplicationScope
-    fun provideCoinRepository(impl : CoinRepositoryImpl) : CoinRepository {
-        return impl
-    }
+    abstract fun bindCoinRepository(impl : CoinRepositoryImpl) : CoinRepository
 
-    @Provides
-    @ApplicationScope
-    fun provideCoinInfoDao(application: Application) : CoinInfoDao {
-        return CoinDatabase.getInstance(application).coinPriceInfoDao()
-    }
+    companion object {
+        @Provides
+        @ApplicationScope
+        fun provideCoinInfoDao(application: Application) : CoinInfoDao {
+            return CoinDatabase.getInstance(application).coinPriceInfoDao()
+        }
 
-    @Provides
-    @ApplicationScope
-    fun provideApiService() : ApiService {
-        return ApiFactory.apiService
+        @Provides
+        @ApplicationScope
+        fun provideApiService() : ApiService {
+            return ApiFactory.apiService
+        }
     }
 }

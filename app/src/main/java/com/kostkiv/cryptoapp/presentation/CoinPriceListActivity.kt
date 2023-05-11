@@ -2,6 +2,7 @@ package com.kostkiv.cryptoapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.kostkiv.cryptoapp.R
 import com.kostkiv.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.kostkiv.cryptoapp.domain.CoinInfo
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class CoinPriceListActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var viewModel : CoinViewModel
+    lateinit var viewModelFactory: ViewModelFactory
     private var _binding : ActivityCoinPriceListBinding? = null
     private val binding : ActivityCoinPriceListBinding
     get() = _binding ?: throw RuntimeException("ActivityCoinPriceListBinding == null")
@@ -25,10 +26,8 @@ class CoinPriceListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityCoinPriceListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        this.actionBar?.hide()
+        val viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         val adapter = CoinInfoAdapter(this)
-
         if(binding.FragmentContainerMainActivityLand == null) {
             adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
                 override fun onCoinClick(coinFullInfo: CoinInfo) {
