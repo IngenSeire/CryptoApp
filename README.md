@@ -8,7 +8,7 @@
 тут же используются корутины (suspend функция), что и позволяет сервису останавливать свое выполнение на 10 сек перед последующей итерацией. 
 Также присутствует mapper в котором преобразуются классы из domain в dto из data слоя и обратно. Данные сохраняются в базу данных и берутся оттуда, 
 таким образом даже без интернета будут ображены последняя актуальная информация.  
-On the main screen we can see a list of 10 most popular cryptocurrencys which updates every 10 seconds, on click second screen will be opened, there user can see more 
+On the main screen we can see a list of 10 most popular cryptocurrencies which updates every 10 seconds, on click second screen will be opened, there user can see more 
 detailed information about selected coin. Also there is a land orientation in which main screen "splited" in two, where in the first part will be located list and in the
 second one - detailed information if we click on some coin.
 About technologies and realizations: the application is created according to the clean architecture and dependency injection principles (using Dagger2). List is created
